@@ -28,7 +28,7 @@ void ESAController::init() {
     ESP_ERROR_CHECK(esp_timer_start_periodic(motors_timer, 500));
 
     wheel_motor.enable();
-    wheel_motor.target = 3;
+    wheel_motor.target = 0;
 }
 
 void ESAController::motor_timer_callback(void *arg) {
