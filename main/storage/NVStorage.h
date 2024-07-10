@@ -7,15 +7,22 @@
 #include "nvs.h"
 
 class NVStorage {
-private:
-    inline static struct system_params_t {
+public:
+    static void init();
+
+    static inline struct system_params_t {
         bool dhcp = true;
         uint8_t ip[4] = {0};
         uint8_t mask[4] = {0};
         uint8_t gateway[4] = {0};
-    }
-    
-    inline static struct esa_motor_params {
+    } systemParams {
+        .dhcp = true,
+        .ip = {0},
+        .mask = {0},
+        .gateway = {0}
+    };
+
+    static inline struct esa_motor_params {
         bool calibrate = true;
         bool inverseEncoder = false;
         float encoderAngle = 3.14;
@@ -29,12 +36,21 @@ private:
         float velFilter = 0.002;
         float angleProp = 47;
         float angleLimit = 100;
+    } esaParams {
+        .calibrate = true,
+        .inverseEncoder = false,
+        .encoderAngle = 3.14,
+        .voltageLimit = 6,
+        .velLimitHard = 999,
+        .velProp = 1,
+        .velIntegral = 25,
+        .velDiff = 0.003,
+        .velRamp = 1000,
+        .velLimit = 7,
+        .velFilter = 0.002,
+        .angleProp = 47,
+        .angleLimit = 100
     };
-public:
-    static void init();
-
-    static inline system_params_t systemParams;
-    static inline esa_motor_params esaParams;
 
     static void loadSystemParams();
     static void saveSystemParams();

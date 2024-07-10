@@ -79,27 +79,19 @@ void NVStorage::loadESAMotorParams() {
         ESP_LOGE(TAG, "Error (%s) opening NVS handle!\n", esp_err_to_name(err));
     } else {
         ESP_LOGI(TAG,"Reading clutch motor params from NVS ...");
-        nvs_get_u32(nvs_handler, "esa_disabledPos",      (uint32_t*)&esaParams.disabledPos);
-        nvs_get_u32(nvs_handler, "esa_zeroPos",          (uint32_t*)&esaParams.zeroPos);
-        nvs_get_u32(nvs_handler, "esa_fullEngPos",       (uint32_t*)&esaParams.fullEngPos);
-        nvs_get_u32(nvs_handler, "esa_minEngPos",        (uint32_t*)&esaParams.minEngPos);
-        nvs_get_u32(nvs_handler, "esa_pressedPos",       (uint32_t*)&esaParams.pressedPos);
-        nvs_get_u32(nvs_handler, "esa_curProp",          (uint32_t*)&esaParams.curProp);
-        nvs_get_u32(nvs_handler, "esa_curIntegral",      (uint32_t*)&esaParams.curIntegral);
-        nvs_get_u32(nvs_handler, "esa_curDiff",          (uint32_t*)&esaParams.curDiff);
-        nvs_get_u32(nvs_handler, "esa_curRamp",          (uint32_t*)&esaParams.curRamp);
-        nvs_get_u32(nvs_handler, "esa_curLimit",         (uint32_t*)&esaParams.curLimit);
-        nvs_get_u32(nvs_handler, "esa_curFilter",        (uint32_t*)&esaParams.curFilter);
+        nvs_get_u32(nvs_handler, "esa_calibrate",        (uint32_t*)&esaParams.calibrate);
+        nvs_get_u32(nvs_handler, "esa_inverseEncoder",   (uint32_t*)&esaParams.inverseEncoder);
+        nvs_get_u32(nvs_handler, "esa_encoderAngle",     (uint32_t*)&esaParams.encoderAngle);
+        nvs_get_u32(nvs_handler, "esa_voltageLimit",     (uint32_t*)&esaParams.voltageLimit);
+        nvs_get_u32(nvs_handler, "esa_velLimitHard",     (uint32_t*)&esaParams.velLimitHard);
         nvs_get_u32(nvs_handler, "esa_velProp",          (uint32_t*)&esaParams.velProp);
         nvs_get_u32(nvs_handler, "esa_velIntegral",      (uint32_t*)&esaParams.velIntegral);
         nvs_get_u32(nvs_handler, "esa_velDiff",          (uint32_t*)&esaParams.velDiff);
         nvs_get_u32(nvs_handler, "esa_velRamp",          (uint32_t*)&esaParams.velRamp);
         nvs_get_u32(nvs_handler, "esa_velLimit",         (uint32_t*)&esaParams.velLimit);
         nvs_get_u32(nvs_handler, "esa_velFilter",        (uint32_t*)&esaParams.velFilter);
-        nvs_get_u32(nvs_handler, "esa_posProp",          (uint32_t*)&esaParams.posProp);
-        nvs_get_u32(nvs_handler, "esa_posLimit",         (uint32_t*)&esaParams.posLimit);
-        nvs_get_u32(nvs_handler, "esa_curOffset",        (uint32_t*)&esaParams.curOffset);
-
+        nvs_get_u32(nvs_handler, "esa_angleProp",        (uint32_t*)&esaParams.angleProp);
+        nvs_get_u32(nvs_handler, "esa_angleLimit",       (uint32_t*)&esaParams.angleLimit);
         nvs_close(nvs_handler);
     }
 }
@@ -113,26 +105,19 @@ void NVStorage::saveESAMotorParams() {
         ESP_LOGE(TAG, "Error (%s) opening NVS handle!\n", esp_err_to_name(err));
     } else {
         ESP_LOGI(TAG, "Saving clutch motor params to NVS ...");
-        nvs_set_u32(nvs_handler, "esa_disabledPos",      *(uint32_t*)&esaParams.disabledPos);
-        nvs_set_u32(nvs_handler, "esa_zeroPos",          *(uint32_t*)&esaParams.zeroPos);
-        nvs_set_u32(nvs_handler, "esa_fullEngPos",       *(uint32_t*)&esaParams.fullEngPos);
-        nvs_set_u32(nvs_handler, "esa_minEngPos",        *(uint32_t*)&esaParams.minEngPos);
-        nvs_set_u32(nvs_handler, "esa_pressedPos",       *(uint32_t*)&esaParams.pressedPos);
-        nvs_set_u32(nvs_handler, "esa_curProp",          *(uint32_t*)&esaParams.curProp);
-        nvs_set_u32(nvs_handler, "esa_curIntegral",      *(uint32_t*)&esaParams.curIntegral);
-        nvs_set_u32(nvs_handler, "esa_curDiff",          *(uint32_t*)&esaParams.curDiff);
-        nvs_set_u32(nvs_handler, "esa_curRamp",          *(uint32_t*)&esaParams.curRamp);
-        nvs_set_u32(nvs_handler, "esa_curLimit",         *(uint32_t*)&esaParams.curLimit);
-        nvs_set_u32(nvs_handler, "esa_curFilter",        *(uint32_t*)&esaParams.curFilter);
+        nvs_set_i8(nvs_handler, "esa_calibrate",         *(uint8_t*)&esaParams.calibrate);
+        nvs_set_i8(nvs_handler, "esa_inverseEncoder",    *(uint8_t*)&esaParams.inverseEncoder);
+        nvs_set_u32(nvs_handler, "esa_encoderAngle",     *(uint32_t*)&esaParams.encoderAngle);
+        nvs_set_u32(nvs_handler, "esa_voltageLimit",     *(uint32_t*)&esaParams.voltageLimit);
+        nvs_set_u32(nvs_handler, "esa_velLimitHard",     *(uint32_t*)&esaParams.velLimitHard);
         nvs_set_u32(nvs_handler, "esa_velProp",          *(uint32_t*)&esaParams.velProp);
         nvs_set_u32(nvs_handler, "esa_velIntegral",      *(uint32_t*)&esaParams.velIntegral);
         nvs_set_u32(nvs_handler, "esa_velDiff",          *(uint32_t*)&esaParams.velDiff);
         nvs_set_u32(nvs_handler, "esa_velRamp",          *(uint32_t*)&esaParams.velRamp);
         nvs_set_u32(nvs_handler, "esa_velLimit",         *(uint32_t*)&esaParams.velLimit);
         nvs_set_u32(nvs_handler, "esa_velFilter",        *(uint32_t*)&esaParams.velFilter);
-        nvs_set_u32(nvs_handler, "esa_posProp",          *(uint32_t*)&esaParams.posProp);
-        nvs_set_u32(nvs_handler, "esa_posLimit",         *(uint32_t*)&esaParams.posLimit);
-        nvs_set_u32(nvs_handler, "esa_curOffset",        *(uint32_t*)&esaParams.curOffset);
+        nvs_set_u32(nvs_handler, "esa_angleProp",        *(uint32_t*)&esaParams.angleProp);
+        nvs_set_u32(nvs_handler, "esa_angleLimit",       *(uint32_t*)&esaParams.angleLimit);
         
         nvs_commit(nvs_handler);
         nvs_close(nvs_handler);
