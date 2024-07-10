@@ -7,6 +7,7 @@
 #include "Ethernet.h"
 #include "Webserver.h"
 #include "NVStorage.h"
+#include "ESAController.h"
 
 static const char* TAG = "main";
 
@@ -15,4 +16,5 @@ extern "C" void app_main(void) {
     NVStorage::loadSystemParams();
     Ethernet::init(40, 41, 2, 42, 1, SPI3_HOST);
     Webserver::init();
+    ESAController::init();
 }
